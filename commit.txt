@@ -1,0 +1,9 @@
+Commit 1
+- Instalación inicial del framewrok
+- Se crean los request de empresas, clientes, servicios y facturacion
+- Se crean los modelos User, Servicio, Cliente, Facturacion y Empresa y también sus migraciones
+- Se crean los controladores de Servicio, Cliente, Facturacion y Empresa
+- Se crean los seederd de Empresa y Servicios
+- Se crea la base de datos y sus tablas
+- Se crea un host virtual llamado facturacion.app
+- Se crea el repositorio git
