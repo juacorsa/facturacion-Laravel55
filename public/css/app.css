@@ -34,12 +34,6 @@ thead {
 table {
 	background-color: white;
 }
-tr:nth-child(odd) { 
-	background: #F5F5F5; 
-}
-tr:nth-child(even) { 
-	background: #FFF 
-}
 .navbar-default {
     background-color: #F8F8F8;
     border-color: #E7E7E7;
@@ -52,5 +46,7 @@ tr:nth-child(even) {
 .dataTables_length select  {    
     height: 35px;
 }
+
 .no-sort::after { display: none!important; }
 .no-sort { pointer-events: none!important; cursor: default!important; }
+table.item tr:hover td { background-color: #f5f5f5; }

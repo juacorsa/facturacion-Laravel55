@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestión de entradas</title>          
+    <title>Facturación</title>          
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" type="text/css">    
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet" type="text/css">    
@@ -23,35 +23,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Gestión Entradas</a>
+                <a class="navbar-brand" href="#">Facturación</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">                    
                     <li>
-                        <a href="{{ route('entradas-pendientes.index') }}"><i class="fa fa-bell"></i> Entradas Pendientes</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('entradas-reparadas.index') }}"><i class="fa fa-thumbs-up"></i> Entradas Reparadas</a>
-                    </li>                    
-                    <li>
-                        <a href="{{ route('entradas-entregadas.index') }}"><i class="fa fa-check"></i> Entradas Entregadas</a>
+                        <a href="#"><i class="fa fa-bell"></i> Facturación de servicios</a>
                     </li>
                     <li>
                         <a href="{{ route('clientes.index') }}"><i class="fa fa-users"></i> Clientes</a>
                     </li>
                     <li>
-                        <a href="{{ route('productos.index') }}"><i class="fa fa-desktop"></i> Productos</a>
+                        <a href="{{ route('servicios.index') }}"><i class="fa fa-desktop"></i> Servicios</a>
                     </li>
                     <li>
-                        <a href="{{ route('tecnicos.index') }}"><i class="fa fa-user"></i> Técnicos</a>
+                        <a href="{{ route('empresas.index') }}"><i class="fa fa-user"></i> Empresas</a>
                     </li>
                 </ul> 
-
-                <ul class="nav navbar-nav pull-right">   
-                    <li>    
-                    <a href="{{ route('entrada.create') }}"><i class="fa fa-user"></i> Nueva entrada</a>
-                    </li>                                               
-                </ul>
             </div>
         </div>
     </nav>

@@ -1,4 +1,5 @@
-
+Commit 3
+- Se termina la gestión de clientes, empresas y servicios
 
 Commit 2
 - Se crea el layout principal de la aplicación
