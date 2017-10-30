@@ -47,6 +47,12 @@ table {
     height: 35px;
 }
 
+.info { font-size: 12px; }
 .no-sort::after { display: none!important; }
 .no-sort { pointer-events: none!important; cursor: default!important; }
 table.item tr:hover td { background-color: #f5f5f5; }
+
+.detalle {
+	background-color: #f5f5f5;
+	width: 55px;	
+}

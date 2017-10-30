@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">                    
                     <li>
-                        <a href="#"><i class="fa fa-bell"></i> Facturación de servicios</a>
+                        <a href="{{ route('facturacion.index') }}"><i class="fa fa-bell"></i> Facturación de servicios</a>
                     </li>
                     <li>
                         <a href="{{ route('clientes.index') }}"><i class="fa fa-users"></i> Clientes</a>
@@ -40,6 +40,11 @@
                         <a href="{{ route('empresas.index') }}"><i class="fa fa-user"></i> Empresas</a>
                     </li>
                 </ul> 
+                <ul class="nav navbar-nav navbar-right">                
+                    <li>
+                        <a href="{{ route('facturacion.create') }}"><i class="fa fa-user"></i> Nuevo servicio facturable</a>
+                    </li>                                  
+                </ul>               
             </div>
         </div>
     </nav>

@@ -45,6 +45,13 @@ Route::post('/empresa', 'EmpresasController@store')->name('empresa.store');
 Route::get('/empresa/{id}', 'EmpresasController@edit')->name('empresa.edit');
 Route::put('/empresa', 'EmpresasController@update')->name('empresa.update');
 
+// Rutas de facturación
+Route::get('/facturacion', 'FacturacionController@index')->name('facturacion.index');
+Route::get('/facturacion/create', 'FacturacionController@create')->name('facturacion.create');
+Route::post('/facturacion/store', 'FacturacionController@store')->name('facturacion.store');
+Route::post('/facturacion/list', 'FacturacionController@list')->name('facturacion.list');
+Route::get('/facturacion/show/{id}', 'FacturacionController@show')->name('facturacion.show');
+Route::get('/facturacion/exportar', 'FacturacionController@exportar')->name('facturacion.exportar');
 
 Auth::routes();
 

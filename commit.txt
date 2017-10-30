@@ -1,3 +1,8 @@
+Commit 4
+- Se termina el registro de servicios facturables
+- Se termina la consulta de servicios facturables, así como la exportación a excel de los mismos
+- Se termina la opción de ver el detalle de un servicio facturable
+
 Commit 3
 - Se termina la gestión de clientes, empresas y servicios
 
