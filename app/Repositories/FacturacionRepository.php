@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Interfaces\FacturacionRepositoryInterface;
 use App\Facturacion;
 use Config;
+use Carbon\Carbon;
+use App\Mes;
 
 class FacturacionRepository implements FacturacionRepositoryInterface
 {
@@ -41,24 +43,17 @@ class FacturacionRepository implements FacturacionRepositoryInterface
 
 	public function obtenerTodos($mes, $servicio, $estado, $empresa)
 	{		
-		if ($servicio > 0) {
-			return Facturacion::with('cliente')
-				->with('servicio')
-				->with('empresa')
-				->where($this->meses[$mes], 1)
-				->where('servicio_id', $servicio)
-				->where('empresa_id', $empresa)
-				->where('estado', $estado)
-				->get();
-		} else {
-			return Facturacion::with('cliente')
+		$query = Facturacion::with('cliente')
 				->with('servicio')
 				->with('empresa')
 				->where($this->meses[$mes], 1)				
 				->where('empresa_id', $empresa)
-				->where('estado', $estado)
-				->get();			
-		}
+				->where('estado', $estado);
+
+		if ($servicio > 0)
+			$query = $query->where('servicio_id', $servicio);
+
+		return $query->get();				
 	}
 
 	public function actualizar(array $datos)
@@ -71,6 +66,8 @@ class FacturacionRepository implements FacturacionRepositoryInterface
 		$facturacion->dominio 	    = $datos['dominio'];
 		$facturacion->base 			= $datos['base'];
 		$facturacion->observaciones = $datos['observaciones'];
+		$facturacion->motivo_baja   = $datos['motivo_baja'];		
+		$facturacion->estado        = $datos['estado'];
 		$facturacion->ene = $datos['ene'];
 		$facturacion->feb = $datos['feb'];
 		$facturacion->mar = $datos['mar'];
@@ -83,6 +80,14 @@ class FacturacionRepository implements FacturacionRepositoryInterface
 		$facturacion->oct = $datos['oct'];
 		$facturacion->nov = $datos['nov'];
 		$facturacion->dic = $datos['dic'];
+	
+		if ($datos['fecha_baja']) {
+			$fecha = explode("/", $datos['fecha_baja']);			
+			$fecha_baja = new Carbon();
+			$fecha_baja->setDate($fecha[2], $fecha[1], $fecha[0]);
+			$facturacion->fecha_baja = $fecha_baja;
+		}
+
 		$facturacion->save();		
 	}
 
@@ -91,18 +96,19 @@ class FacturacionRepository implements FacturacionRepositoryInterface
 		$mesesFacturacion = '';
 		$facturacion = $this->obtener($id);
 
-		if ($facturacion->ene == 1) $mesesFacturacion = $mesesFacturacion . ' Enero';
-		if ($facturacion->feb == 1) $mesesFacturacion = $mesesFacturacion . ' Febrero';
-		if ($facturacion->mar == 1) $mesesFacturacion = $mesesFacturacion . ' Marzo';
-		if ($facturacion->abr == 1) $mesesFacturacion = $mesesFacturacion . ' Abril';
-		if ($facturacion->may == 1) $mesesFacturacion = $mesesFacturacion . ' Mayo	';
-		if ($facturacion->jun == 1) $mesesFacturacion = $mesesFacturacion . ' Junio';
-		if ($facturacion->jul == 1) $mesesFacturacion = $mesesFacturacion . ' Julio';
-		if ($facturacion->ago == 1) $mesesFacturacion = $mesesFacturacion . ' Agosto';
-		if ($facturacion->sep == 1) $mesesFacturacion = $mesesFacturacion . ' Septiembre';
-		if ($facturacion->oct == 1) $mesesFacturacion = $mesesFacturacion . ' Octubre';
-		if ($facturacion->oct == 1) $mesesFacturacion = $mesesFacturacion . ' Noviembre';
-		if ($facturacion->oct == 1) $mesesFacturacion = $mesesFacturacion . ' Diciembre';		
+		if ($facturacion->ene == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::ENERO;
+		if ($facturacion->feb == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::FEBRERO;
+		if ($facturacion->mar == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::MARZO;
+		if ($facturacion->abr == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::ABRIL;
+		if ($facturacion->may == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::MAYO;
+		if ($facturacion->jun == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::JUNIO;
+		if ($facturacion->jul == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::JULIO;
+		if ($facturacion->ago == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::AGOSTO;
+		if ($facturacion->sep == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::SEPTIEMBRE;
+		if ($facturacion->oct == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::OCTUBRE;
+		if ($facturacion->nov == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::NOVIEMBRE;
+		if ($facturacion->dic == 1) $mesesFacturacion = $mesesFacturacion . ' ' . Mes::DICIEMBRE;
+
 		return $mesesFacturacion;
 	}
 }

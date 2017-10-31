@@ -12,10 +12,10 @@ use Exception;
 class ClientesController extends Controller
 {
 	private $repositorio;
-
+    
 	public function __construct(ClienteRepositoryInterface $repositorio)
 	{		
-		$this->repositorio = $repositorio;
+		$this->repositorio = $repositorio;        
 	}
 
     public function index()

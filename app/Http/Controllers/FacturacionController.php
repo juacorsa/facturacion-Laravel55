@@ -13,6 +13,8 @@ use Config;
 use Exception;
 use PHPExcel_IOFactory;
 use Excel;
+use Carbon;
+use App\Comun;
 
 class FacturacionController extends Controller
 {
@@ -31,6 +33,7 @@ class FacturacionController extends Controller
 		$this->repositorioServicios = $repositorioServicios;
 		$this->repositorioClientes  = $repositorioClientes;
 		$this->repositorioEmpresas  = $repositorioEmpresas;
+        Carbon\Carbon::setLocale('es');    
 	}
 
     public function index()
@@ -70,10 +73,17 @@ class FacturacionController extends Controller
             Session::flash('flash_titulo', ERROR);
             Session::flash('flash_tipo', FLASH_ERROR);           
             return back();            
+        }       
+                
+        $tiempoBaja = '';
+        if ($facturacion->fecha_baja) {
+            $fecha = Carbon\Carbon::parse($facturacion->fecha_baja);                     
+            $dias_transcurridos = $fecha->diffInDays(Carbon\Carbon::today());
+            $tiempoBaja = '(Hace ' . $fecha->diffForHumans(Carbon\Carbon::now(), true) . ')';
         }
-        
+
         $mesesFacturacion = $this->repositorioFacturacion->obtenerMesesFacturacion($id);
-        return view('facturacion.show', compact('facturacion', 'mesesFacturacion'));        
+        return view('facturacion.show', compact('facturacion', 'mesesFacturacion', 'tiempoBaja'));        
     }
 
     public function exportar()
@@ -95,8 +105,10 @@ class FacturacionController extends Controller
         };
       
         $empresa = $this->repositorioEmpresas->obtener($empresa);
-        $fichero = 'Facturacion ' . Config::get('mes.'.$mes) . ' ' . $empresa->nombre;
+        //$fichero = 'Facturacion ' . Config::get('mes.'.$mes) . ' ' . $empresa->nombre;
         
+        $fichero = 'Facturacion ' . Comun::MESES[$mes] . ' ' . $empresa->nombre;
+
         Excel::create($fichero, function($excel) use($datos) {                
             $excel->sheet('Facturacion', function($sheet) use($datos) {                
                 $sheet->fromArray($datos, null, 'A1', null, false);                
@@ -140,7 +152,32 @@ class FacturacionController extends Controller
 		return redirect()->back()->withInput();
     }
 
-    public function edit($id)  
+    public function update(FacturacionRequest $request)
+    {
+		$datos = $request->only(['cliente_id', 'empresa_id', 'servicio_id', 'dominio' ,'base',
+		'observaciones', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 
+        'oct', 'nov', 'dic', 'fecha_baja', 'motivo_baja', 'id', 'estado']); 
+
+        try
+    	{
+    		$this->repositorioFacturacion->actualizar($datos);
+            Session::flash('flash_toastr', '');          
+            Session::flash('flash_mensaje', SERVICIO_ACTUALIZADO);
+            Session::flash('flash_titulo', ENHORABUENA);
+            Session::flash('flash_tipo', FLASH_SUCCESS);                             		    		
+            return redirect()->back()->withInput();
+    	}
+    	catch(Exception $e)
+    	{            
+            Session::flash('flash_swal', 'swal');
+            Session::flash('flash_mensaje', SERVICIO_NO_ACTUALIZADO);            
+            Session::flash('flash_titulo', ERROR);
+            Session::flash('flash_tipo', FLASH_ERROR);                                   
+            return back();
+    	}
+    }    
+
+    public function edit($id)
     {
         $facturacion = $this->repositorioFacturacion->obtener($id);       
 
@@ -153,33 +190,12 @@ class FacturacionController extends Controller
             return back();            
         }
 
-    	$empresas  = $this->repositorioEmpresas->obtenerTodos();
-    	$clientes  = $this->repositorioClientes->obtenerTodos();
-    	$servicios = $this->repositorioServicios->obtenerTodos();        
-
-        return view('facturacion.edit', compact('empresa'));        
-    }  
-
-    public function update(FacturacionRequest $request)
-    {
-		$datos = $request->only(['cliente_id', 'empresa_id', 'servicio_id', 'dominio' ,'base',
-		'observaciones', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']); 
-
- 		try
-    	{
-    		$this->repositorioFacturacion->actualizar($datos);
-            Session::flash('flash_toastr', '');          
-            Session::flash('flash_mensaje', SERVICIO_ACTUALIZADA);
-            Session::flash('flash_titulo', ENHORABUENA);
-            Session::flash('flash_tipo', FLASH_SUCCESS);               		    		
-    	}
-    	catch(Exception $e)
-    	{
-            Session::flash('flash_swal', 'swal');
-            Session::flash('flash_mensaje', SERVICIO_NO_REGISTRADO);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);                       
-            return back();
-    	}
-    }    
+        if ($facturacion->fecha_baja)         
+            $facturacion->fecha_baja = Carbon\Carbon::parse($facturacion->fecha_baja)->format('d/m/Y');
+        
+        $empresas  = $this->repositorioEmpresas->obtenerTodos()->pluck('nombre', 'id');
+        $clientes  = $this->repositorioClientes->obtenerTodos()->pluck('nombre', 'id');
+        $servicios = $this->repositorioServicios->obtenerTodos()->pluck('nombre', 'id');
+        return view('facturacion.edit', compact('facturacion', 'servicios', 'empresas', 'clientes'));                    
+    }
 }

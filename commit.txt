@@ -1,3 +1,9 @@
+Commit 5
+- Se termina la actualización de servicios facturables
+- Se crea la clase Comun con un array de meses
+- Se crea la clase Mes con varias constantes de los meses
+- Se prueba la aplicación a nivel global
+
 Commit 4
 - Se termina el registro de servicios facturables
 - Se termina la consulta de servicios facturables, así como la exportación a excel de los mismos
@@ -15,7 +21,7 @@ Commit 1
 - Se crean los request de empresas, clientes, servicios y facturacion
 - Se crean los modelos User, Servicio, Cliente, Facturacion y Empresa y también sus migraciones
 - Se crean los controladores de Servicio, Cliente, Facturacion y Empresa
-- Se crean los seederd de Empresa y Servicios
+- Se crean los seeders de Empresa y Servicios
 - Se crea la base de datos y sus tablas
 - Se crea un host virtual llamado facturacion.app
 - Se crea el repositorio git

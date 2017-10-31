@@ -52,7 +52,8 @@ Route::post('/facturacion/store', 'FacturacionController@store')->name('facturac
 Route::post('/facturacion/list', 'FacturacionController@list')->name('facturacion.list');
 Route::get('/facturacion/show/{id}', 'FacturacionController@show')->name('facturacion.show');
 Route::get('/facturacion/exportar', 'FacturacionController@exportar')->name('facturacion.exportar');
+Route::get('/facturacion/{id}', 'FacturacionController@edit')->name('facturacion.edit');
+Route::put('/facturacion', 'FacturacionController@update')->name('facturacion.update');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'FacturacionController@index')->name('home');

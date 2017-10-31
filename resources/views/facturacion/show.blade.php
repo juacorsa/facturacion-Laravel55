@@ -33,13 +33,18 @@
 					@endif					
 				</td>					
 			</tr>	
-			<tr>
+			<tr> 
 				<td class="detalle">Dominio</td>
 				<td>{{ $facturacion->dominio }}</td>
 			</tr>					
 			<tr>
 				<td class="detalle">Fecha baja</td>
-				<td>{{ $facturacion->fecha_baja }}</td>
+				<td>
+					@if ($facturacion->fecha_baja)
+						{{ Carbon\Carbon::parse($facturacion->fecha_baja)->format('d/m/Y') }}
+						{{ $tiempoBaja}}
+					@endif	
+				</td>
 			</tr>
 			<tr>
 				<td class="detalle">Motivo baja</td>
@@ -61,13 +66,13 @@
 	@section('scripts')
 	@parent
 	<script type="text/javascript">
-			$(document).keydown(function(e) {				
-				if (e.keyCode == 27) { 
-				   window.history.back();
-				   return false;
-				}
-			});    				
-		</script>
+		$(document).keydown(function(e) {				
+			if (e.keyCode == 27) { 
+			   window.history.back();
+			   return false;
+			}
+		});    				
+	</script>
     @stop
 
 @endsection

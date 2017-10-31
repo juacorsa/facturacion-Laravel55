@@ -5,10 +5,10 @@
 	<h2><i class="fa fa-users" aria-hidden="true"></i> Actualizar servicio facturable</h2>	
 	<p>A continuación podrás actualizar el servicio facturable seleccionado.</p>
 	<hr/>
-	<div class="col-sm-6">
+	<div class="col-sm-7">
 		{!! Form::model($facturacion, ['class' => 'form-horizontal', 'route' => 'facturacion.update', 'method' => 'PUT']) !!}
 
-			@include('facturacion.partials.fields')		
+			@include('facturacion.partials.edit')		
 
 			<div class="form-group">
 	        	<div class="col-sm-offset-2 col-sm-8">				

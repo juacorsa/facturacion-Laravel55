@@ -67,7 +67,7 @@
 					@foreach ($serviciosFacturables as $servicio)
 						<tr>
 							<td>
-								<a class="btn btn-primary" href="{{ route('servicio.edit', $servicio) }}">
+								<a class="btn btn-primary" href="{{ route('facturacion.edit', $servicio) }}">
 									<i class="fa fa-bars"></i>									
 								</a>						
 							</td>							

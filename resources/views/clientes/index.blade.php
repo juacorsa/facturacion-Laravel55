@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('contenido')
-
+	
 	<h2><i class="fa fa-users" aria-hidden="true"></i> Gestión de clientes</h2>
 	<p>
 	    A continuación se muestran todos los clientes registrados en la aplicación, ordenados alfabéticamente.
