@@ -1,3 +1,9 @@
+Commit 6
+- Se quitan las constantes de web.php y se crea una clase llamada Mensaje.php
+- Se monta el sistema de autenticación
+- Se deshabilita el sistema de registro de usuarios
+- Se crea la vista 404.blade.php
+
 Commit 5
 - Se termina la actualización de servicios facturables
 - Se crea la clase Comun con un array de meses

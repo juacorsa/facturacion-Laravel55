@@ -1,25 +1,5 @@
 <?php
 
-define('FLASH_SUCCESS', 'success');
-define('FLASH_ERROR', 'error');
-define('ENHORABUENA', 'Enhorabuena!!');
-define('ERROR', 'Error!!');
-define('CLIENTE_REGISTRADO', 'Cliente registrado con éxito');
-define('CLIENTE_NO_REGISTRADO', 'Ha sido imposible registrar un nuevo cliente');
-define('CLIENTE_NO_ENCONTRADO', 'Ha sido imposible encontrar el cliente seleccionado');
-define('CLIENTE_NO_ACTUALIZADO', 'Ha sido imposible actualizar el cliente seleccionado');
-define('CLIENTE_ACTUALIZADO', 'Cliente actualizado correctamente');
-define('SERVICIO_REGISTRADO', 'Servicio registrado con éxito');
-define('SERVICIO_NO_REGISTRADO', 'Ha sido imposible registrar un nuevo servicio');
-define('SERVICIO_NO_ENCONTRADO', 'Ha sido imposible encontrar el servicio seleccionado');
-define('SERVICIO_NO_ACTUALIZADO', 'Ha sido imposible actualizar el servicio seleccionado');
-define('SERVICIO_ACTUALIZADO', 'Servicio actualizado correctamente');
-define('EMPRESA_REGISTRADA', 'Empresa registrada con éxito');
-define('EMPRESA_NO_REGISTRADA', 'Ha sido imposible registrar una nueva empresa');
-define('EMPRESA_NO_ENCONTRADA', 'Ha sido imposible encontrar la empresa seleccionada');
-define('EMPRESA_NO_ACTUALIZADA', 'Ha sido imposible actualizar la empresa seleccionada');
-define('EMPRESA_ACTUALIZADA', 'Empresa actualizado correctamente');
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -57,3 +37,5 @@ Route::put('/facturacion', 'FacturacionController@update')->name('facturacion.up
 
 Auth::routes();
 Route::get('/home', 'FacturacionController@index')->name('home');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::redirect('/register', '/login');

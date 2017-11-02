@@ -21,7 +21,8 @@
 
 		{!! Form:: close() !!}
 	</div>
-@section('scripts')
+
+	@section('scripts')
 	@parent
 	<script type="text/javascript">
 			$(document).keydown(function(e) {				

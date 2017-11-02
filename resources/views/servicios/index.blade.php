@@ -68,5 +68,9 @@
 			</script>
 		@endif		
     @stop
+
+    {!! Session::forget('flash_titulo') !!}
+    {!! Session::forget('flash_tipo') !!}
+    {!! Session::forget('flash_mensaje') !!}    
     
 @endsection

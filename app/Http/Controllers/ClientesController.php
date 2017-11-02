@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ClienteRequest;
 use App\Interfaces\ClienteRepositoryInterface;
 use App\Cliente;
+use App\Mensaje;
 use Session;
 use Exception;
 
@@ -15,6 +16,7 @@ class ClientesController extends Controller
     
 	public function __construct(ClienteRepositoryInterface $repositorio)
 	{		
+        $this->middleware('auth');
 		$this->repositorio = $repositorio;        
 	}
 
@@ -37,17 +39,17 @@ class ClientesController extends Controller
     	{
     		$this->repositorio->registrar($datos);
             Session::flash('flash_toastr', '');          
-            Session::flash('flash_mensaje', CLIENTE_REGISTRADO);
-            Session::flash('flash_titulo', ENHORABUENA);
-            Session::flash('flash_tipo', FLASH_SUCCESS);               		
+            Session::flash('flash_mensaje', Mensaje::CLIENTE_REGISTRADO);
+            Session::flash('flash_titulo', Mensaje::ENHORABUENA);
+            Session::flash('flash_tipo', Mensaje::FLASH_SUCCESS);               		
     		return redirect()->route('clientes.index');
     	}
     	catch(Exception $e)
     	{
             Session::flash('flash_swal', 'swal');
-            Session::flash('flash_mensaje', CLIENTE_NO_REGISTRADO);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);           
+            Session::flash('flash_mensaje', Mensaje::CLIENTE_NO_REGISTRADO);
+            Session::flash('flash_titulo', Mensaje::ERROR);
+            Session::flash('flash_tipo', Mensaje::FLASH_ERROR);           
             return back();
     	}
     }
@@ -59,9 +61,9 @@ class ClientesController extends Controller
         if (!$cliente) 
         {
             Session::flash('flash_swal', '');
-            Session::flash('flash_mensaje', CLIENTE_NO_ENCONTRADO);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);           
+            Session::flash('flash_mensaje', Mensaje::CLIENTE_NO_ENCONTRADO);
+            Session::flash('flash_titulo', Mensaje::ERROR);
+            Session::flash('flash_tipo', Mensaje::FLASH_ERROR);           
             return back();            
         }
 
@@ -75,17 +77,17 @@ class ClientesController extends Controller
         {
             $this->repositorio->actualizar($datos);
             Session::flash('flash_toastr', '');          
-            Session::flash('flash_mensaje', CLIENTE_ACTUALIZADO);
-            Session::flash('flash_titulo', ENHORABUENA);
-            Session::flash('flash_tipo', FLASH_SUCCESS);                       
+            Session::flash('flash_mensaje', Mensaje::CLIENTE_ACTUALIZADO);
+            Session::flash('flash_titulo', Mensaje::ENHORABUENA);
+            Session::flash('flash_tipo', Mensaje::FLASH_SUCCESS);                       
             return redirect()->route('clientes.index'); 
         }
         catch(Exception $e)
         {
             Session::flash('flash_swal', 'swal');
-            Session::flash('flash_mensaje', CLIENTE_NO_ACTUALIZADO);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);           
+            Session::flash('flash_mensaje', Mensaje::CLIENTE_NO_ACTUALIZADO);
+            Session::flash('flash_titulo', Mensaje::ERROR);
+            Session::flash('flash_tipo', Mensaje::FLASH_ERROR);           
             return back();
         }                                  
     }  

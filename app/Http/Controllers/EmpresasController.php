@@ -15,6 +15,7 @@ class EmpresasController extends Controller
 
 	public function __construct(EmpresaRepositoryInterface $repositorio)
 	{		
+        $this->middleware('auth');
 		$this->repositorio = $repositorio;
 	}
 
@@ -37,17 +38,17 @@ class EmpresasController extends Controller
     	{
     		$this->repositorio->registrar($datos);
             Session::flash('flash_toastr', '');          
-            Session::flash('flash_mensaje', EMPRESA_REGISTRADA);
-            Session::flash('flash_titulo', ENHORABUENA);
-            Session::flash('flash_tipo', FLASH_SUCCESS);               		
+            Session::flash('flash_mensaje', Mensaje::EMPRESA_REGISTRADA);
+            Session::flash('flash_titulo', Mensaje::ENHORABUENA);
+            Session::flash('flash_tipo', Mensaje::FLASH_SUCCESS);               		
     		return redirect()->route('empresas.index');
     	}
     	catch(Exception $e)
     	{
             Session::flash('flash_swal', 'swal');
-            Session::flash('flash_mensaje', EMPRESA_NO_REGISTRADA);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);           
+            Session::flash('flash_mensaje', Mensaje::EMPRESA_NO_REGISTRADA);
+            Session::flash('flash_titulo', Mensaje::ERROR);
+            Session::flash('flash_tipo', Mensaje::FLASH_ERROR);           
             return back();
     	}
     }
@@ -59,9 +60,9 @@ class EmpresasController extends Controller
         if (!$empresa) 
         {
             Session::flash('flash_swal', '');
-            Session::flash('flash_mensaje', EMPRESA_NO_ENCONTRADA);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);           
+            Session::flash('flash_mensaje', Mensaje::EMPRESA_NO_ENCONTRADA);
+            Session::flash('flash_titulo', Mensaje::ERROR);
+            Session::flash('flash_tipo', Mensaje::FLASH_ERROR);           
             return back();            
         }
 
@@ -76,17 +77,17 @@ class EmpresasController extends Controller
         {
             $this->repositorio->actualizar($datos);
             Session::flash('flash_toastr', '');          
-            Session::flash('flash_mensaje', EMPRESA_ACTUALIZADA);
-            Session::flash('flash_titulo', ENHORABUENA);
-            Session::flash('flash_tipo', FLASH_SUCCESS);                       
+            Session::flash('flash_mensaje', Mensaje::EMPRESA_ACTUALIZADA);
+            Session::flash('flash_titulo', Mensaje::ENHORABUENA);
+            Session::flash('flash_tipo', Mensaje::FLASH_SUCCESS);                       
             return redirect()->route('empresas.index'); 
         }
         catch(Exception $e)
         {
             Session::flash('flash_swal', 'swal');
-            Session::flash('flash_mensaje', EMPRESA_NO_ACTUALIZADA);
-            Session::flash('flash_titulo', ERROR);
-            Session::flash('flash_tipo', FLASH_ERROR);           
+            Session::flash('flash_mensaje', Mensaje::EMPRESA_NO_ACTUALIZADA);
+            Session::flash('flash_titulo', Mensaje::ERROR);
+            Session::flash('flash_tipo', Mensaje::FLASH_ERROR);           
             return back();
         }                                  
     }   

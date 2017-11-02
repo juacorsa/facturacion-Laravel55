@@ -43,7 +43,12 @@
                 <ul class="nav navbar-nav navbar-right">                
                     <li>
                         <a href="{{ route('facturacion.create') }}"><i class="fa fa-user"></i> Nuevo servicio facturable</a>
-                    </li>                                  
+                    </li> 
+                    @auth
+                    <li>
+                        <a href="{{ route('logout') }}"><i class="fa fa-times"></i> Cerrar sesión</a>
+                    </li>                     
+                    @endauth                                 
                 </ul>               
             </div>
         </div>
@@ -55,7 +60,7 @@
 
     @section('scripts')  
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>  
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>  
         <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
