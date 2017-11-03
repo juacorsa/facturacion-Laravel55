@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Rutas de clientes
 Route::get('/clientes', 'ClientesController@index')->name('clientes.index');
 Route::get('/cliente', 'ClientesController@create')->name('cliente.create');
@@ -36,6 +32,7 @@ Route::get('/facturacion/{id}', 'FacturacionController@edit')->name('facturacion
 Route::put('/facturacion', 'FacturacionController@update')->name('facturacion.update');
 
 Auth::routes();
+Route::get('/', 'FacturacionController@index')->name('home');
 Route::get('/home', 'FacturacionController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::redirect('/register', '/login');

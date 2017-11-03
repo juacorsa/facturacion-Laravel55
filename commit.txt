@@ -1,3 +1,6 @@
+Commit 7
+- Se soluciona un problema con las rutas de la aplicación
+
 Commit 6
 - Se quitan las constantes de web.php y se crea una clase llamada Mensaje.php
 - Se monta el sistema de autenticación
